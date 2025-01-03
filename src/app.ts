@@ -62,6 +62,9 @@ app.post(
         });
       return;
     }
+
+    redisClient.flushAll();
+
     const product = await Product.create({
       name,
       price,
@@ -77,6 +80,13 @@ app.post(
 );
 
 app.get("/getAll",async (req,res) => {
+
+    const data = await redisClient.get('data')
+
+    if(data){
+        res.status(200).send({success:true,products:JSON.parse(data)})
+        return;
+    }
 
     const products = await Product.find({});
       redisClient.setEx('data',DEFAULT_EXPIRATION,JSON.stringify(products))

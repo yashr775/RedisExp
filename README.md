@@ -1,1 +1,1 @@
-Redis client minor project
+Redis client minor project which shows complete implementation of redis the project has been created in windows environment by using wsl.
